@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client';
 import { GET_SUNSCREENS } from '@/app/(api)/api/graphql/queries';
 import client from '@/app/(api)/_datalib/_typeDefs/apollo-client';
 import { ApolloProvider } from '@apollo/client';
+import Footer from './Footer';
 
 function FinderContent() {
   const [query, setQuery] = useState('');
@@ -24,7 +25,9 @@ function FinderContent() {
 
   return (
     <main className="relative min-h-screen w-full bg-[#f7f2ff] text-[#292524] antialiased overflow-hidden font-serif">
-      <div className="glow-bg" />
+      {/* <div className="glow-bg" /> */}
+      {/* gradiett bg tyepee */}
+
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 pt-24 text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
@@ -48,7 +51,7 @@ function FinderContent() {
         {error && <p className="mt-6 text-red-500">Error fetching data.</p>}
 
         {filteredResults?.length > 0 && (
-          <div className="mt-8 mb-40 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 mb-20 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {filteredResults.map((sunscreen: any) => (
               <div
                 key={sunscreen.id}
@@ -76,40 +79,66 @@ function FinderContent() {
       </div>
 
       <style jsx>{`
-        .glow-bg {
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-          background: radial-gradient(circle at 30% 30%, #fcd34d, transparent 50%),
-                      radial-gradient(circle at 70% 40%, #fbbf24, transparent 50%),
-                      radial-gradient(circle at 50% 70%, #fca5a5, transparent 50%);
-          animation: shiftGlow 20s ease-in-out infinite;
-          background-size: 200% 200%;
-          filter: blur(100px);
-          opacity: 0.8;
-          mix-blend-mode: screen;
-        }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.6;
+      mix-blend-mode: screen;
+      animation: float 18s ease-in-out infinite;
+    }
 
-        @keyframes shiftGlow {
-          0% {
-            background-position: 0% 0%;
-          }
-          50% {
-            background-position: 100% 100%;
-          }
-          100% {
-            background-position: 0% 0%;
-          }
-        }
-      `}</style>
+    .blob-1 {
+      width: 400px;
+      height: 400px;
+      background: #fde68a; /* warm yellow */
+      top: 10%;
+      left: 20%;
+      animation-delay: 0s;
+    }
+
+    .blob-2 {
+      width: 500px;
+      height: 500px;
+      background: #facc15; /* gold */
+      top: 40%;
+      left: 60%;
+      animation-delay: 4s;
+    }
+
+    .blob-3 {
+      width: 300px;
+      height: 300px;
+      background: #fcd34d; /* goldenrod */
+      top: 70%;
+      left: 30%;
+      animation-delay: 8s;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-40px) scale(1.1);
+      }
+    }
+  `}</style>
+
     </main>
   );
 }
 
 export default function FinderPage() {
   return (
-    <ApolloProvider client={client}>
-      <FinderContent />
-    </ApolloProvider>
+    <>
+      <ApolloProvider client={client}>
+      <div className="relative flex flex-col text-[#292524] font-serif overflow-hidden">
+        <FinderContent />
+        <Footer />
+      </div>
+      </ApolloProvider>
+    </>
   );
 }
