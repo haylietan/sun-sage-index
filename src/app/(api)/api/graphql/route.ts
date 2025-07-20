@@ -1,10 +1,16 @@
+// src/app/(api)/api/graphql/route.ts
+
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { gql } from 'graphql-tag';
-import { PrismaClient } from '@/generated/prisma';
+import { NextRequest } from 'next/server';
+// import { PrismaClient } from '@/generated/prisma'; // adjust path if needed
+import { PrismaClient } from '@/components/generated/prisma';
+
 
 const prisma = new PrismaClient();
 
+// Define GraphQL type definitions
 const typeDefs = gql`
   type Sunscreen {
     id: String!
@@ -22,30 +28,35 @@ const typeDefs = gql`
   }
 
   type Query {
-    sunscreens(keyword: String): [Sunscreen!]!
+    sunscreens: [Sunscreen!]!
   }
 `;
 
+// Define resolvers
 const resolvers = {
   Query: {
-    sunscreens: async (_parent: any, args: { keyword?: string }) => {
-      if (args.keyword) {
-        return prisma.sunscreen.findMany({
-          where: {
-            OR: [
-              { name: { contains: args.keyword, mode: 'insensitive' } },
-              { brand: { contains: args.keyword, mode: 'insensitive' } },
-              { tag: { hasSome: [args.keyword.toLowerCase()] } },
-            ],
-          },
-        });
-      }
+    sunscreens: async () => {
       return prisma.sunscreen.findMany();
     },
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
-const handler = startServerAndCreateNextHandler(server);
+// Initialize Apollo Server
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
 
-export { handler as GET, handler as POST };
+// Create handler with context
+const handler = startServerAndCreateNextHandler(server, {
+  context: async () => ({ prisma }),
+});
+
+// Export GET and POST handlers
+export async function POST(request: NextRequest, context: any) {
+  return handler(request, context);
+}
+
+export async function GET(request: NextRequest, context: any) {
+  return handler(request, context);
+}

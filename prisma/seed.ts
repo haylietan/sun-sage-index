@@ -2,7 +2,7 @@ import { PrismaClient } from '../src/generated/prisma';
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.sunscreen.deleteMany(); 
+  await prisma.sunscreen.deleteMany(); // clears existing data    
   await prisma.sunscreen.createMany({
     data: [
       {

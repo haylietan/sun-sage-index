@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_SUNSCREENS } from '@/app/(api)/api/graphql/queries';
-import client from '@/app/(api)/_datalib/_typeDefs/apollo-client';
+import { GET_SUNSCREENS } from '@/components/app/(api)/api/graphql/queries';
+import client from '@/components/app/(api)/_datalib/_typeDefs/apollo-client';
+// import client from '@/app/(api)/_datalib/_typeDefs/apollo-client';
 import { ApolloProvider } from '@apollo/client';
 import Footer from './Footer';
 
