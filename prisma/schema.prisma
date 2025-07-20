@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Sunscreen {
+  id           String   @id @default(uuid())
+  name         String
+  brand        String
+  spf          Int
+  description  String?
+  imageUrl     String?
+  tag          String[]
+
+  skinType     SkinType[] // e.g. oily, dry
+  finish       Finish     // e.g. matte, dewy
+  isReefSafe   Boolean
+  isWaterResistant Boolean
+  rating       Float?     // user rating if applicable
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+enum SkinType {
+  DRY
+  OILY
+  COMBINATION
+  SENSITIVE
+  NORMAL
+}
+
+enum Finish {
+  MATTE
+  DEWY
+  NATURAL
+  SATIN
+}
+
