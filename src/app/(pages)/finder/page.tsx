@@ -24,16 +24,26 @@ function FinderContent() {
   });
 
   return (
-    <main className="relative min-h-screen w-full bg-[#f7f2ff] text-[#292524] antialiased overflow-hidden font-serif">
+    <main
+      className="relative min-h-screen w-full text-[#292524] antialiased overflow-hidden font-serif"
+      style={{
+        background: 'radial-gradient(circle, rgba(238,229,174,1) 0%, rgba(194,128,118,1) 100%)'
+      }}
+    >
       {/* <div className="glow-bg" /> */}
       {/* gradiett bg tyepee */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="blob blob-1" />
+          <div className="blob blob-2" />
+          <div className="blob blob-3" />
+        </div>
 
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 pt-24 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+        <h1 className="text-4xl text-white md:text-5xl font-bold mb-4 tracking-tight">
           Start Your Search
         </h1>
-        <p className="text-md text-gray-700 mb-10">
+        <p className="text-md text-white mb-10">
           Find sunscreen tailored to your skin type, values, and lifestyle.
         </p>
 
@@ -43,7 +53,7 @@ function FinderContent() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="e.g. oily skin, SPF 50+, reef-safe"
-            className="w-full px-5 py-3 rounded-full border border-gray-300 shadow-md bg-white/80 backdrop-blur-sm placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#a78bfa] transition"
+            className="w-full px-5 py-3 rounded-full border border-gray-300 shadow-md bg-white/80 backdrop-blur-sm placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[pink] transition"
           />
         </div>
 
@@ -79,52 +89,62 @@ function FinderContent() {
       </div>
 
       <style jsx>{`
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.6;
-      mix-blend-mode: screen;
-      animation: float 18s ease-in-out infinite;
-    }
-
-    .blob-1 {
-      width: 400px;
-      height: 400px;
-      background: #fde68a; /* warm yellow */
-      top: 10%;
-      left: 20%;
-      animation-delay: 0s;
-    }
-
-    .blob-2 {
-      width: 500px;
-      height: 500px;
-      background: #facc15; /* gold */
-      top: 40%;
-      left: 60%;
-      animation-delay: 4s;
-    }
-
-    .blob-3 {
-      width: 300px;
-      height: 300px;
-      background: #fcd34d; /* goldenrod */
-      top: 70%;
-      left: 30%;
-      animation-delay: 8s;
-    }
-
-    @keyframes float {
-      0%,
-      100% {
-        transform: translateY(0) scale(1);
+      .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.5;
+        mix-blend-mode: screen;
+        animation: float 18s ease-in-out infinite alternate,
+                  moveX 30s ease-in-out infinite alternate;
       }
-      50% {
-        transform: translateY(-40px) scale(1.1);
+
+      .blob-1 {
+        width: 400px;
+        height: 400px;
+        background: #f97316; /* vibrant orange */
+        top: 10%;
+        left: 15%;
+        animation-delay: 0s, 0s;
       }
-    }
-  `}</style>
+
+      .blob-2 {
+        width: 500px;
+        height: 500px;
+        background: #fb923c; /* peachy orange */
+        top: 40%;
+        left: 50%;
+        animation-delay: 2s, 4s;
+      }
+
+      .blob-3 {
+        width: 350px;
+        height: 350px;
+        background: #fdba74; /* soft amber */
+        top: 70%;
+        left: 25%;
+        animation-delay: 4s, 8s;
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-30px) scale(1.1);
+        }
+      }
+
+      @keyframes moveX {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(60px);
+        }
+      }
+    `}</style>
+
 
     </main>
   );
