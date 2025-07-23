@@ -6,9 +6,8 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../lib/prisma"
+  output   = "../src/generated/prisma"
 }
-
 
 datasource db {
   provider = "postgresql"
@@ -47,5 +46,4 @@ enum Finish {
   NATURAL
   SATIN
 }
-
 
