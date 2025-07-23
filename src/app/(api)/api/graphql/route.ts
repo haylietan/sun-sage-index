@@ -8,6 +8,7 @@ import { NextRequest } from 'next/server';
 import { PrismaClient } from '@/components/generated/prisma';
 
 
+
 const prisma = new PrismaClient();
 
 // Define GraphQL type definitions
